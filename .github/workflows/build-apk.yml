@@ -12,6 +12,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -27,8 +28,14 @@ jobs:
         with:
           gradle-version: "8.9"
 
+      - name: Check project files
+        run: |
+          ls -la
+          echo "----- settings.gradle.kts -----"
+          cat settings.gradle.kts
+
       - name: Build debug APK
-        run: gradle assembleDebug
+        run: gradle :app:assembleDebug
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
